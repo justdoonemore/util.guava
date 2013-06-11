@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+
+group="com.jdom"
+version="0.0.1"
+
+repositories {
+    maven {
+        credentials {
+           username nexusUsername
+           password nexusPassword
+        }
+        url nexusUrl
+    }
+}
+
+uploadArchives {
+   repositories {
+       mavenDeployer {
+	       repository(url: releasesUrl) {
+	           authentication(userName: nexusUsername, password: nexusPassword)
+           }
+       }
+   }
+}
+
+dependencies {
+   compile "com.google.guava:guava:14.0.1"
+   compile "com.jdom:util.log.api:0.0.4"
+   testCompile "junit:junit:4.11"
+}
